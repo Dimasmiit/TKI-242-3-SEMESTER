@@ -4,25 +4,25 @@
 namespace miit::algebra
 {
     /**
-     * @brief Реализация первого задания
+     * @brief Р РµР°Р»РёР·Р°С†РёСЏ РїРµСЂРІРѕРіРѕ Р·Р°РґР°РЅРёСЏ
      */
     class Task1Exercise : public Exercise
     {
     public:
         /**
-         * @brief Конструктор
-         * @param mat Матрица для обработки
+         * @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+         * @param mat РњР°С‚СЂРёС†Р° РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё
          */
         explicit Task1Exercise(Matrix<int> mat);
 
         /**
-         * @brief Деструктор
+         * @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
          */
         ~Task1Exercise() override = default;
 
         /**
-         * @brief Замена минимального по модулю положительного элемента нулем
+         * @brief Р—Р°РјРµРЅР° РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ РїРѕ РјРѕРґСѓР»СЋ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РЅСѓР»РµРј
          */
-        void execute_task1();
+        void execute_task() override;
     };
 }
