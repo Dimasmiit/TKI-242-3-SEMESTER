@@ -40,7 +40,7 @@ namespace miit::algebra
     template<typename T>
     Matrix<T>::~Matrix() = default;
 
-    // Операторы присваивания
+    // РћРїРµСЂР°С‚РѕСЂС‹ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
     template<typename T>
     Matrix<T>& Matrix<T>::operator=(const Matrix& other)
     {
@@ -70,13 +70,13 @@ namespace miit::algebra
         return *this;
     }
 
-    // Операторы доступа
+    // РћРїРµСЂР°С‚РѕСЂС‹ РґРѕСЃС‚СѓРїР°
     template<typename T>
     T& Matrix<T>::operator[](size_t index)
     {
         if (index >= size)
         {
-            throw std::out_of_range("Индекс за пределами диапазона");
+            throw std::out_of_range("РРЅРґРµРєСЃ Р·Р° РїСЂРµРґРµР»Р°РјРё РґРёР°РїР°Р·РѕРЅР°");
         }
         return data[index];
     }
@@ -86,12 +86,12 @@ namespace miit::algebra
     {
         if (index >= size)
         {
-            throw std::out_of_range("Индекс за пределами диапазона");
+            throw std::out_of_range("РРЅРґРµРєСЃ Р·Р° РїСЂРµРґРµР»Р°РјРё РґРёР°РїР°Р·РѕРЅР°");
         }
         return data[index];
     }
 
-    // Операторы сдвига (требуются по заданию)
+    // РћРїРµСЂР°С‚РѕСЂС‹ СЃРґРІРёРіР° (С‚СЂРµР±СѓСЋС‚СЃСЏ РїРѕ Р·Р°РґР°РЅРёСЋ)
     template<typename T>
     Matrix<T> Matrix<T>::operator<<(int shift) const
     {
@@ -114,7 +114,7 @@ namespace miit::algebra
         return *this << (-shift);
     }
 
-    // Методы доступа
+    // РњРµС‚РѕРґС‹ РґРѕСЃС‚СѓРїР°
     template<typename T>
     size_t Matrix<T>::size() const
     {
