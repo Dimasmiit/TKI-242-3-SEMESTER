@@ -22,7 +22,7 @@ namespace miit::algebra
                 matrix[i] = matrix[i] - 1;
             }
         }
-        std::cout << "Массив A (после преобразований): " << matrix.to_string() << std::endl;
+        std::cout << "РњР°СЃСЃРёРІ A (РїРѕСЃР»Рµ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёР№): " << matrix.to_string() << std::endl;
     }
 
 }
