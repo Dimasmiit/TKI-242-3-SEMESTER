@@ -17,7 +17,7 @@ namespace miit::algebra
          * @brief Конструктор
          * @param value Значение, которое будет возвращаться при каждом вызове generate()
          */
-        ConstantGenerator(int value);
+        ConstantGenerator(const int value);
 
         /**
          * @brief Возвращает константное значение
