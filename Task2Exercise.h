@@ -44,6 +44,6 @@ namespace miit::algebra
         /**
          * @brief Удаление элементов с четными первой и последней цифрами и вывод результата
          */
-        void execute_task2();
+        void execute_task() override;
     };
 }

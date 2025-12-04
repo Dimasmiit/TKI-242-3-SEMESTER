@@ -21,7 +21,6 @@ namespace miit::algebra
         size_t size_;
 
     public:
-        // Конструкторы и деструктор
         Matrix();
         explicit Matrix(size_t size);
         Matrix(const T* values, size_t size);
@@ -42,11 +41,10 @@ namespace miit::algebra
         Matrix operator<<(int shift) const;
         Matrix operator>>(int shift) const;
 
-        // Методы доступа
+      
         size_t size() const;
         std::string to_string() const;
 
-        // Заполнение массива
         void fill(Generator& generator);
     };
 

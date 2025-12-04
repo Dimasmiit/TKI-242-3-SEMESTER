@@ -24,6 +24,6 @@ namespace miit::algebra
         /**
          * @brief Формирование массива A по правилам и вывод результата
          */
-        void execute_task3();
+        void execute_task() override;
     };
 }

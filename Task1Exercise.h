@@ -23,6 +23,6 @@ namespace miit::algebra
         /**
          * @brief Замена минимального по модулю положительного элемента нулем
          */
-        void execute_task1();
+        void execute_task() override;
     };
 }
