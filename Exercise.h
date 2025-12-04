@@ -1,28 +1,35 @@
-#include "Task3Exercise.h"
-#include <cmath>
-#include <iostream>
+#pragma once
+
+#include "Matrix.h"
+#include "Generator.h"
 
 namespace miit::algebra
 {
-
-    Task3Exercise::Task3Exercise(Matrix<int> mat) : Exercise(std::move(mat))
+    /**
+     * @brief Абстрактный класс для выполнения заданий
+     */
+    class Exercise
     {
-    }
+    protected:
+        Matrix<int>& matrix;
+        Generator& gen;
 
-    void Task3Exercise::execute_task3()
-    {
-        for (size_t i = 0; i < matrix.size(); ++i)
-        {
-            if (i >= 2 && i <= 11)
-            {
-                matrix[i] = -matrix[i] * matrix[i];
-            }
-            else
-            {
-                matrix[i] = matrix[i] - 1;
-            }
-        }
-        std::cout << "Массив A (после преобразований): " << matrix.to_string() << std::endl;
-    }
+    public:
+        /**
+         * @brief Конструктор класса
+         * @param matrix Ссылка на объект Matrix
+         * @param gen Ссылка на генератор
+         */
+        Exercise(Matrix<int>& matrix, Generator& gen);
 
+        /**
+         * @brief Виртуальный деструктор
+         */
+        virtual ~Exercise() = default;
+
+        /**
+         * @brief Виртуальная функция для решения задачи
+         */
+        virtual void task() = 0;
+    };
 }

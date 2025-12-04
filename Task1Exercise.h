@@ -18,7 +18,7 @@ namespace miit::algebra
         /**
          * @brief Деструктор
          */
-        ~Task1Exercise() override = default;
+        ~Task1Exercise() = default;
 
         /**
          * @brief Замена минимального по модулю положительного элемента нулем

@@ -19,7 +19,7 @@ namespace miit::algebra {
         testing::internal::CaptureStdout();
         task.execute_task2();
         std::string output = testing::internal::GetCapturedStdout();
-        EXPECT_TRUE(output.find("ÐœÐ°ÑÑÐ¸Ð² Ð¿ÑƒÑÑ‚Ð¾Ð¹") != std::string::npos);
+        EXPECT_TRUE(output.find("Массив пустой") != std::string::npos);
     }
 
 }

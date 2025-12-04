@@ -1,11 +1,9 @@
-#pragma once
-#include <string>
-#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <initializer_list>
 #include <algorithm>
-#include "Generator.h"
+
+class Generator;
 
 namespace miit::algebra
 {
@@ -26,27 +24,30 @@ namespace miit::algebra
         Matrix(const T* values, size_t size);
         Matrix(const Matrix& other);
         Matrix(Matrix&& other) noexcept;
-        explicit Matrix(std::initializer_list<T> list);
+        explicit Matrix(const std::initializer_list<T> list);
         ~Matrix() = default;
+
         Matrix& operator=(const Matrix& other);
         Matrix& operator=(Matrix&& other) noexcept;
+
         T& operator[](size_t index);
         const T& operator[](size_t index) const;
+
         Matrix operator<<(int shift) const;
         Matrix operator>>(int shift) const;
 
-      
         size_t size() const;
         std::string to_string() const;
-
         void fill(Generator& generator);
     };
+
 
     template<typename T>
     Matrix<T>::Matrix() : data(nullptr), size_(0) {}
 
     template<typename T>
-    Matrix<T>::Matrix(size_t size) : size_(size) {
+    Matrix<T>::Matrix(size_t size) : size_(size)
+    {
         if (size_ > 0) {
             data = std::make_unique<T[]>(size_);
         }
@@ -54,7 +55,8 @@ namespace miit::algebra
 
     template<typename T>
     Matrix<T>::Matrix(const T* values, size_t size)
-        : size_(size), data(std::make_unique<T[]>(size)) {
+        : size_(size), data(std::make_unique<T[]>(size))
+    {
         if (size == 0) {
             throw std::invalid_argument("Размер матрицы должен быть больше 0");
         }
@@ -65,39 +67,47 @@ namespace miit::algebra
 
     template<typename T>
     Matrix<T>::Matrix(const Matrix& other)
-        : size_(other.size_), data(std::make_unique<T[]>(other.size_)) {
-        for (size_t i = 0; i < size_; ++i) {
-            data[i] = other.data[i];
-        }
+        : size_(other.size_), data(std::make_unique<T[]>(other.size_))
+    {
+        std::copy(other.data.get(), other.data.get() + size_, data.get());
     }
 
     template<typename T>
     Matrix<T>::Matrix(Matrix&& other) noexcept
-        : data(std::move(other.data)), size_(other.size_) {
+        : data(std::move(other.data)), size_(other.size_)
+    {
         other.size_ = 0;
     }
 
     template<typename T>
     Matrix<T>::Matrix(std::initializer_list<T> list)
-        : size_(list.size()), data(std::make_unique<T[]>(list.size())) {
+        : size_(list.size()), data(std::make_unique<T[]>(list.size()))
+    {
         std::copy(list.begin(), list.end(), data.get());
     }
 
     template<typename T>
-    Matrix<T>& Matrix<T>::operator=(const Matrix& other) {
-        if (this != &other) {
+    Matrix<T>& Matrix<T>::operator=(const Matrix& other)
+    {
+        if (this != &other)
+        {
             size_ = other.size_;
-            data = std::make_unique<T[]>(other.size_);
-            for (size_t i = 0; i < size_; ++i) {
-                data[i] = other.data[i];
+            if (size_ > 0) {
+                data = std::make_unique<T[]>(size_);
+                std::copy(other.data.get(), other.data.get() + size_, data.get());
+            }
+            else {
+                data = nullptr;
             }
         }
         return *this;
     }
 
     template<typename T>
-    Matrix<T>& Matrix<T>::operator=(Matrix&& other) noexcept {
-        if (this != &other) {
+    Matrix<T>& Matrix<T>::operator=(Matrix&& other) noexcept
+    {
+        if (this != &other)
+        {
             data = std::move(other.data);
             size_ = other.size_;
             other.size_ = 0;
@@ -106,49 +116,60 @@ namespace miit::algebra
     }
 
     template<typename T>
-    T& Matrix<T>::operator[](size_t index) {
-        if (index >= size_) {
+    T& Matrix<T>::operator[](size_t index)
+    {
+        if (index >= size_)
+        {
             throw std::out_of_range("Индекс за пределами диапазона");
         }
         return data[index];
     }
 
     template<typename T>
-    const T& Matrix<T>::operator[](size_t index) const {
-        if (index >= size_) {
+    const T& Matrix<T>::operator[](size_t index) const
+    {
+        if (index >= size_)
+        {
             throw std::out_of_range("Индекс за пределами диапазона");
         }
         return data[index];
     }
 
     template<typename T>
-    Matrix<T> Matrix<T>::operator<<(int shift) const {
+    Matrix<T> Matrix<T>::operator<<(int shift) const
+    {
         Matrix result(size_);
-        if (size_ == 0) return result;
-        shift = shift % static_cast<int>(size_);
-        if (shift < 0) shift += static_cast<int>(size_);
+        if (size_ > 0) {
+            shift = shift % static_cast<int>(size_);
+            if (shift < 0) shift += static_cast<int>(size_);
 
-        for (size_t i = 0; i < size_; ++i) {
-            result.data[(i + shift) % size_] = data[i];
+            for (size_t i = 0; i < size_; ++i)
+            {
+                result.data[(i + shift) % size_] = data[i];
+            }
         }
         return result;
     }
 
     template<typename T>
-    Matrix<T> Matrix<T>::operator>>(int shift) const {
+    Matrix<T> Matrix<T>::operator>>(int shift) const
+    {
         return *this << (-shift);
     }
 
     template<typename T>
-    size_t Matrix<T>::size() const {
+    size_t Matrix<T>::size() const
+    {
         return size_;
     }
 
     template<typename T>
-    std::string Matrix<T>::to_string() const {
+    std::string Matrix<T>::to_string() const
+    {
         std::ostringstream oss;
         oss << "[";
-        for (size_t i = 0; i < size_; ++i) {
+        for (size_t i = 0; i < size_; ++i)
+        {
             oss << data[i];
             if (i < size_ - 1) oss << ", ";
         }
@@ -157,9 +178,13 @@ namespace miit::algebra
     }
 
     template<typename T>
-    void Matrix<T>::fill(Generator& generator) {
-        for (size_t i = 0; i < size_; ++i) {
+    void Matrix<T>::fill(Generator& generator)
+    {
+        for (size_t i = 0; i < size_; ++i)
+        {
             data[i] = static_cast<T>(generator.generate());
         }
     }
+    template class Matrix<int>;
+    template class Matrix<double>;
 }

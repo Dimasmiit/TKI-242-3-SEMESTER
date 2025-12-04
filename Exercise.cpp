@@ -2,14 +2,5 @@
 
 namespace miit::algebra
 {
-
-    Exercise::Exercise(Matrix<int> mat) : matrix(std::move(mat))
-    {
-    }
-
-    const Matrix<int>& Exercise::get_matrix() const
-    {
-        return matrix;
-    }
-
+    Exercise::Exercise(Matrix<int>& arr, Generator& g) : matrix(arr), gen(g) {}
 }

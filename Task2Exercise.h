@@ -20,14 +20,14 @@ namespace miit::algebra
          * @param number Исходное число
          * @return Первая цифра
          */
-        int get_first_digit(int number) const;
+        int get_first_digit(const int number) const;
 
         /**
          * @brief Получает последнюю цифру числа
          * @param number Исходное число
          * @return Последняя цифра
          */
-        int get_last_digit(int number) const;
+        int get_last_digit(const int number) const;
 
     public:
         /**
@@ -39,7 +39,7 @@ namespace miit::algebra
         /**
          * @brief Деструктор
          */
-        ~Task2Exercise() override = default;
+        ~Task2Exercise() = default;
 
         /**
          * @brief Удаление элементов с четными первой и последней цифрами и вывод результата

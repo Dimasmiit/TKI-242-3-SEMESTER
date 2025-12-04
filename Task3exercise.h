@@ -19,7 +19,7 @@ namespace miit::algebra
         /**
          * @brief Деструктор
          */
-        ~Task3Exercise() override = default;
+        ~Task3Exercise() = default;
 
         /**
          * @brief Формирование массива A по правилам и вывод результата
