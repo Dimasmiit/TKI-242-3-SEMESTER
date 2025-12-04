@@ -13,19 +13,19 @@ int main() {
     setlocale(LC_ALL, "RUSSIAN");
 
     try {
-        std::cout << "Ââåäèòå ðàçìåð ìàññèâà: ";
+        std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¼Ð°ÑÑÐ¸Ð²Ð°: ";
         size_t size;
         std::cin >> size;
 
         if (size <= 0)
         {
-            std::cerr << "Ðàçìåð ìàññèâà äîëæåí áûòü ñòðîãî áîëüøå íóëÿ" << std::endl;
+            std::cerr << "Ð Ð°Ð·Ð¼ÐµÑ€ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ ÑÑ‚Ñ€Ð¾Ð³Ð¾ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð½ÑƒÐ»Ñ" << std::endl;
             return EXIT_FAILURE;
         }
 
-        std::cout << "Êàê âû õîòèòå çàïîëíèòü ìàññèâ?" << std::endl;
-        std::cout << "0 - Ðó÷íîé ââîä" << std::endl;
-        std::cout << "1 - Çàïîëíåíèå ìàññèâà ñëó÷àéíûìè ÷èñëàìè" << std::endl;
+        std::cout << "ÐšÐ°Ðº Ð²Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð·Ð°Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÑŒ Ð¼Ð°ÑÑÐ¸Ð²?" << std::endl;
+        std::cout << "0 - Ð ÑƒÑ‡Ð½Ð¾Ð¹ Ð²Ð²Ð¾Ð´" << std::endl;
+        std::cout << "1 - Ð—Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð° ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ñ‹Ð¼Ð¸ Ñ‡Ð¸ÑÐ»Ð°Ð¼Ð¸" << std::endl;
 
         int choice;
         std::cin >> choice;
@@ -34,7 +34,7 @@ int main() {
 
         if (choice == 0)
         {
-            std::cout << "Ââåäèòå " << size << " ýëåìåíòîâ ìàññèâà:" << std::endl;
+            std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ " << size << " ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð¼Ð°ÑÑÐ¸Ð²Ð°:" << std::endl;
             generator = std::make_unique<IStreamGenerator>(std::cin);
         }
         else if (choice == 1)
@@ -43,38 +43,38 @@ int main() {
         }
         else
         {
-            std::cerr << "Ââåäåíî íåêîððåêòíîå çíà÷åíèå âûáîðà" << std::endl;
+            std::cerr << "Ð’Ð²ÐµÐ´ÐµÐ½Ð¾ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð²Ñ‹Ð±Ð¾Ñ€Ð°" << std::endl;
             return EXIT_FAILURE;
         }
 
         Matrix<int> original_matrix(size);
         original_matrix.fill(*generator);
 
-        std::cout << "Èñõîäíûé ìàññèâ:" << std::endl;
+        std::cout << "Ð˜ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¹ Ð¼Ð°ÑÑÐ¸Ð²:" << std::endl;
         std::cout << original_matrix.to_string() << std::endl;
 
         {
             Task1Exercise task1_exercise(original_matrix);
             task1_exercise.execute_task1();
-            std::cout << "Ìàññèâ, â êîòîðîì ìèíèìàëüíûé ïî ìîäóëþ ïîëîæèòåëüíûé ýëåìåíò çàìåíåí íóëåì:" << std::endl;
+            std::cout << "ÐœÐ°ÑÑÐ¸Ð², Ð² ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¼ Ð¼Ð¸Ð½Ð¸Ð¼Ð°Ð»ÑŒÐ½Ñ‹Ð¹ Ð¿Ð¾ Ð¼Ð¾Ð´ÑƒÐ»ÑŽ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð·Ð°Ð¼ÐµÐ½ÐµÐ½ Ð½ÑƒÐ»ÐµÐ¼:" << std::endl;
             std::cout << task1_exercise.get_matrix().to_string() << std::endl;
         }
 
         {
             Task2Exercise task2_exercise(original_matrix);
-            std::cout << "Ìàññèâ áåç ýëåìåíòîâ, ó êîòîðûõ ïåðâàÿ è ïîñëåäíÿÿ öèôðà ÷åòíûå:" << std::endl;
-            task2_exercise.execute_task2(); // Âûâîä ïðîèñõîäèò âíóòðè ìåòîäà
+            std::cout << "ÐœÐ°ÑÑÐ¸Ð² Ð±ÐµÐ· ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð², Ñƒ ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ñ… Ð¿ÐµÑ€Ð²Ð°Ñ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÑÑ Ñ†Ð¸Ñ„Ñ€Ð° Ñ‡ÐµÑ‚Ð½Ñ‹Ðµ:" << std::endl;
+            task2_exercise.execute_task2(); // Ð’Ñ‹Ð²Ð¾Ð´ Ð¿Ñ€Ð¾Ð¸ÑÑ…Ð¾Ð´Ð¸Ñ‚ Ð²Ð½ÑƒÑ‚Ñ€Ð¸ Ð¼ÐµÑ‚Ð¾Ð´Ð°
         }
 
         {
             Task3Exercise task3_exercise(original_matrix);
-            std::cout << "Ìàññèâ A, ñôîðìèðîâàííûé èç èñõîäíîãî ìàññèâà ïî ïðàâèëàì:" << std::endl;
-            task3_exercise.execute_task3(); // Âûâîä ïðîèñõîäèò âíóòðè ìåòîäà
+            std::cout << "ÐœÐ°ÑÑÐ¸Ð² A, ÑÑ„Ð¾Ñ€Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ð¹ Ð¸Ð· Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð¿Ð¾ Ð¿Ñ€Ð°Ð²Ð¸Ð»Ð°Ð¼:" << std::endl;
+            task3_exercise.execute_task3(); // Ð’Ñ‹Ð²Ð¾Ð´ Ð¿Ñ€Ð¾Ð¸ÑÑ…Ð¾Ð´Ð¸Ñ‚ Ð²Ð½ÑƒÑ‚Ñ€Ð¸ Ð¼ÐµÑ‚Ð¾Ð´Ð°
         }
 
     }
     catch (const std::exception& e) {
-        std::cerr << "Îøèáêà: " << e.what() << std::endl;
+        std::cerr << "ÐžÑˆÐ¸Ð±ÐºÐ°: " << e.what() << std::endl;
         return EXIT_FAILURE;
     }
 

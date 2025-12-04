@@ -10,8 +10,8 @@
 namespace miit::algebra
 {
     /**
-     * @brief Шаблонный класс для работы с одномерными массивами
-     * @param T Тип элементов массива
+     * @brief РЁР°Р±Р»РѕРЅРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РѕРґРЅРѕРјРµСЂРЅС‹РјРё РјР°СЃСЃРёРІР°РјРё
+     * @param T РўРёРї СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР°
      */
     template<typename T>
     class Matrix
@@ -28,16 +28,10 @@ namespace miit::algebra
         Matrix(Matrix&& other) noexcept;
         explicit Matrix(std::initializer_list<T> list);
         ~Matrix() = default;
-
-        // Операторы присваивания
         Matrix& operator=(const Matrix& other);
         Matrix& operator=(Matrix&& other) noexcept;
-
-        // Операторы доступа
         T& operator[](size_t index);
         const T& operator[](size_t index) const;
-
-        // Операторы сдвига (циклический сдвиг)
         Matrix operator<<(int shift) const;
         Matrix operator>>(int shift) const;
 
@@ -62,7 +56,7 @@ namespace miit::algebra
     Matrix<T>::Matrix(const T* values, size_t size)
         : size_(size), data(std::make_unique<T[]>(size)) {
         if (size == 0) {
-            throw std::invalid_argument("Размер матрицы должен быть больше 0");
+            throw std::invalid_argument("Р Р°Р·РјРµСЂ РјР°С‚СЂРёС†С‹ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 0");
         }
         for (size_t i = 0; i < size; ++i) {
             data[i] = values[i];
@@ -114,7 +108,7 @@ namespace miit::algebra
     template<typename T>
     T& Matrix<T>::operator[](size_t index) {
         if (index >= size_) {
-            throw std::out_of_range("Индекс за пределами диапазона");
+            throw std::out_of_range("РРЅРґРµРєСЃ Р·Р° РїСЂРµРґРµР»Р°РјРё РґРёР°РїР°Р·РѕРЅР°");
         }
         return data[index];
     }
@@ -122,7 +116,7 @@ namespace miit::algebra
     template<typename T>
     const T& Matrix<T>::operator[](size_t index) const {
         if (index >= size_) {
-            throw std::out_of_range("Индекс за пределами диапазона");
+            throw std::out_of_range("РРЅРґРµРєСЃ Р·Р° РїСЂРµРґРµР»Р°РјРё РґРёР°РїР°Р·РѕРЅР°");
         }
         return data[index];
     }

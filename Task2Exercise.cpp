@@ -46,7 +46,7 @@ namespace miit::algebra
         size_t new_size = matrix.size() - count_even;
 
         if (new_size == 0) {
-            std::cout << "Ìàññèâ ïóñòîé ïîñëå ôèëüòðàöèè." << std::endl;
+            std::cout << "ÐœÐ°ÑÑÐ¸Ð² Ð¿ÑƒÑÑ‚Ð¾Ð¹ Ð¿Ð¾ÑÐ»Ðµ Ñ„Ð¸Ð»ÑŒÑ‚Ñ€Ð°Ñ†Ð¸Ð¸." << std::endl;
             return;
         }
 
@@ -63,7 +63,7 @@ namespace miit::algebra
         }
 
         Matrix<int> result_matrix(new_data.get(), new_size);
-        std::cout << "Ìàññèâ ïîñëå ôèëüòðàöèè: " << result_matrix.to_string() << std::endl;
+        std::cout << "ÐœÐ°ÑÑÐ¸Ð² Ð¿Ð¾ÑÐ»Ðµ Ñ„Ð¸Ð»ÑŒÑ‚Ñ€Ð°Ñ†Ð¸Ð¸: " << result_matrix.to_string() << std::endl;
     }
 
 }
