@@ -11,6 +11,16 @@ namespace miit::algebra
     {
     public:
         /**
+         * @brief Значение, означающее, что элемент не найден
+         */
+        static constexpr int NOT_FOUND = -1;
+
+        /**
+         * @brief Значение для замены
+         */
+        static constexpr int REPLACEMENT_VALUE = 0;
+
+        /**
          * @brief Конструктор класса Task1Exercise
          * @param matrix Ссылка на объект класса Matrix
          * @param gen Ссылка на генератор для заполнения
@@ -24,9 +34,15 @@ namespace miit::algebra
 
     private:
         /**
-         * @brief Найти индекс минимального по модулю положительного элемента
-         * @return Индекс найденного элемента или -1, если не найден
+         * @brief Найти индекс первого положительного элемента
+         * @return Индекс найденного элемента или NOT_FOUND, если не найден
          */
-        int findMinPositiveIndex();
+        int findFirstPositiveIndex() const;
+
+        /**
+         * @brief Найти индекс минимального по модулю положительного элемента
+         * @return Индекс найденного элемента или NOT_FOUND, если не найден
+         */
+        int findMinPositiveIndex() const;
     };
 }

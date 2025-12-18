@@ -11,15 +11,31 @@ namespace miit::algebra
         matrix.fill(gen);
     }
 
-    int Task1Exercise::findMinPositiveIndex()
+    int Task1Exercise::findFirstPositiveIndex() const
     {
-        int minIndex = -1;
-        int minValue = -1;
-
         for (size_t i = 0; i < matrix.getSize(); i++) {
             if (matrix[i] > 0) {
-                int absValue = std::abs(matrix[i]);
-                if (minIndex == -1 || absValue < minValue) {
+                return static_cast<int>(i);
+            }
+        }
+        return NOT_FOUND;
+    }
+
+    int Task1Exercise::findMinPositiveIndex() const
+    {
+        const int firstPositiveIndex = findFirstPositiveIndex();
+        
+        if (firstPositiveIndex == NOT_FOUND) {
+            return NOT_FOUND;
+        }
+
+        int minIndex = firstPositiveIndex;
+        int minValue = std::abs(matrix[firstPositiveIndex]);
+
+        for (size_t i = static_cast<size_t>(firstPositiveIndex) + 1; i < matrix.getSize(); i++) {
+            if (matrix[i] > 0) {
+                const int absValue = std::abs(matrix[i]);
+                if (absValue < minValue) {
                     minValue = absValue;
                     minIndex = static_cast<int>(i);
                 }
@@ -33,14 +49,14 @@ namespace miit::algebra
     {
         std::cout << "Было: " << matrix.toString() << std::endl;
 
-        int index = findMinPositiveIndex();
+        const int index = findMinPositiveIndex();
 
-        if (index == -1) {
+        if (index == NOT_FOUND) {
             std::cout << "После замены: Минимальный по модулю положительный элемент не найден" << std::endl;
             return;
         }
 
-        matrix[index] = 0;
+        matrix[index] = REPLACEMENT_VALUE;
         std::cout << "После замены минимального по модулю положительного элемента на 0: " 
                   << matrix.toString() << std::endl << std::endl;
     }
