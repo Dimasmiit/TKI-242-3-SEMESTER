@@ -1,6 +1,8 @@
 #pragma once
 
-#include "LegalCase.h"
+#include "../include/LegalCase.h"
+
+class LawOffice;
 
 /**
  * @brief Класс CourtCase представляет дело о ведении в суде.
@@ -18,9 +20,8 @@ public:
      * @brief Конструктор дела о ведении в суде.
      * @param case_number Номер дела.
      * @param case_content Содержание дела.
-     * @param lawyer_name ФИО адвоката.
-     * @param client_name ФИО клиента.
-     * @param specialization Специализация дела.
+     * @param lawyer Указатель на адвоката.
+     * @param client Указатель на клиента.
      * @param court_name Название суда.
      * @param hearing_date Дата заседания.
      * @param case_stage Стадия дела.
@@ -28,10 +29,35 @@ public:
      * @param is_active Активно ли дело.
      */
     CourtCase(const string& case_number, const string& case_content,
-              const string& lawyer_name, const string& client_name,
-              const Specialization specialization, const string& court_name,
-              const string& hearing_date, const string& case_stage,
-              const double base_price, const bool is_active = true);
+              const shared_ptr<Lawyer>& lawyer, const shared_ptr<Client>& client,
+              const string& court_name, const string& hearing_date, 
+              const string& case_stage, const double base_price, 
+              const bool is_active = true);
+
+    /**
+     * @brief Фабричный метод для создания дела с регистрацией в конторе.
+     * @param case_number Номер дела.
+     * @param case_content Содержание дела.
+     * @param lawyer Указатель на адвоката.
+     * @param client Указатель на клиента.
+     * @param court_name Название суда.
+     * @param hearing_date Дата заседания.
+     * @param case_stage Стадия дела.
+     * @param base_price Базовая цена услуги.
+     * @param office Ссылка на контору.
+     * @param is_active Активно ли дело.
+     * @return shared_ptr на созданное дело.
+     */
+    static shared_ptr<CourtCase> create(const string& case_number, 
+                                        const string& case_content,
+                                        const shared_ptr<Lawyer>& lawyer, 
+                                        const shared_ptr<Client>& client,
+                                        const string& court_name, 
+                                        const string& hearing_date,
+                                        const string& case_stage, 
+                                        const double base_price,
+                                        LawOffice& office,
+                                        const bool is_active = true);
 
     /**
      * @brief Выводит информацию о деле.

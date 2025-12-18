@@ -6,24 +6,9 @@
 
 using namespace std;
 
-/**
- * @brief Перечисление специализаций адвокатов.
- */
-enum class Specialization
-{
-    Housing,      // Жилищные дела
-    Family,       // Семейные дела
-    Criminal,     // Уголовные дела
-    Labor,        // Трудовые споры
-    Property      // Имущественные споры
-};
-
-/**
- * @brief Преобразует специализацию в строку.
- * @param spec Специализация.
- * @return Строковое представление специализации.
- */
-string specialization_to_string(const Specialization spec);
+class Lawyer;
+class Client;
+enum class Specialization;
 
 /**
  * @brief Базовый класс LegalCase представляет дело в адвокатской конторе.
@@ -31,26 +16,24 @@ string specialization_to_string(const Specialization spec);
 class LegalCase
 {
 protected:
-    const string case_number;       // Номер дела
-    const string case_content;      // Содержание дела
-    const string lawyer_name;       // ФИО адвоката
-    const string client_name;       // ФИО клиента
-    const Specialization specialization; // Специализация дела
-    bool is_active;                 // Активно ли дело (занят ли адвокат)
+    const string case_number;               // Номер дела
+    const string case_content;              // Содержание дела
+    shared_ptr<Lawyer> lawyer;              // Адвокат
+    shared_ptr<Client> client;              // Клиент
+    bool is_active;                         // Активно ли дело (занят ли адвокат)
 
 public:
     /**
      * @brief Конструктор базового класса дела.
      * @param case_number Номер дела.
      * @param case_content Содержание дела.
-     * @param lawyer_name ФИО адвоката.
-     * @param client_name ФИО клиента.
-     * @param specialization Специализация дела.
+     * @param lawyer Указатель на адвоката.
+     * @param client Указатель на клиента.
      * @param is_active Активно ли дело.
      */
     LegalCase(const string& case_number, const string& case_content,
-              const string& lawyer_name, const string& client_name,
-              const Specialization specialization, const bool is_active = true);
+              const shared_ptr<Lawyer>& lawyer, const shared_ptr<Client>& client,
+              const bool is_active = true);
 
     /**
      * @brief Виртуальный деструктор для корректного удаления наследников.
@@ -87,10 +70,22 @@ public:
     string get_case_content() const;
 
     /**
+     * @brief Получает указатель на адвоката.
+     * @return Указатель на адвоката.
+     */
+    shared_ptr<Lawyer> get_lawyer() const;
+
+    /**
      * @brief Получает ФИО адвоката.
      * @return ФИО адвоката.
      */
     string get_lawyer_name() const;
+
+    /**
+     * @brief Получает указатель на клиента.
+     * @return Указатель на клиента.
+     */
+    shared_ptr<Client> get_client() const;
 
     /**
      * @brief Получает ФИО клиента.
@@ -99,7 +94,7 @@ public:
     string get_client_name() const;
 
     /**
-     * @brief Получает специализацию дела.
+     * @brief Получает специализацию дела (по специализации адвоката).
      * @return Специализация.
      */
     Specialization get_specialization() const;

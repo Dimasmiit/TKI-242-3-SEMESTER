@@ -1,33 +1,40 @@
 #pragma once
 
-#include "LegalCase.h"
+#include "../include/LegalCase.h"
+#include "../include/Lawyer.h"
+#include "../include/Client.h"
 #include <vector>
 #include <memory>
 #include <string>
-#include <map>
 
 /**
- * @brief Класс LawOffice - адвокатская контора.
+ * @brief Класс LawOffice - адвокатская контора (база данных дел).
  */
 class LawOffice
 {
 private:
-    vector<shared_ptr<LegalCase>> cases;  // Все дела
-    map<string, Specialization> lawyers;  // Адвокаты и их специализации
+    vector<shared_ptr<LegalCase>> cases;     // Все дела
+    vector<shared_ptr<Lawyer>> lawyers;       // Все адвокаты
+    vector<shared_ptr<Client>> clients;       // Все клиенты
 
 public:
     /**
      * @brief Добавляет дело в контору.
      * @param legal_case Указатель на дело.
      */
-    void add_case(const shared_ptr<LegalCase> legal_case);
+    void add_case(const shared_ptr<LegalCase>& legal_case);
 
     /**
-     * @brief Регистрирует адвоката в конторе.
-     * @param lawyer_name ФИО адвоката.
-     * @param spec Специализация адвоката.
+     * @brief Добавляет адвоката в контору.
+     * @param lawyer Указатель на адвоката.
      */
-    void register_lawyer(const string& lawyer_name, const Specialization spec);
+    void add_lawyer(const shared_ptr<Lawyer>& lawyer);
+
+    /**
+     * @brief Добавляет клиента в контору.
+     * @param client Указатель на клиента.
+     */
+    void add_client(const shared_ptr<Client>& client);
 
     /**
      * @brief Показывает список предоставляемых услуг и их цены.
@@ -98,10 +105,36 @@ public:
     vector<shared_ptr<LegalCase>> find_active_cases() const;
 
     /**
+     * @brief Находит адвоката по ФИО.
+     * @param name ФИО адвоката.
+     * @return Указатель на адвоката или nullptr.
+     */
+    shared_ptr<Lawyer> find_lawyer_by_name(const string& name) const;
+
+    /**
+     * @brief Находит клиента по ФИО.
+     * @param name ФИО клиента.
+     * @return Указатель на клиента или nullptr.
+     */
+    shared_ptr<Client> find_client_by_name(const string& name) const;
+
+    /**
      * @brief Возвращает все дела в конторе.
      * @return Константная ссылка на вектор всех дел.
      */
     const vector<shared_ptr<LegalCase>>& get_all_cases() const;
+
+    /**
+     * @brief Возвращает всех адвокатов в конторе.
+     * @return Константная ссылка на вектор всех адвокатов.
+     */
+    const vector<shared_ptr<Lawyer>>& get_all_lawyers() const;
+
+    /**
+     * @brief Возвращает всех клиентов в конторе.
+     * @return Константная ссылка на вектор всех клиентов.
+     */
+    const vector<shared_ptr<Client>>& get_all_clients() const;
 
     /**
      * @brief Возвращает количество дел в конторе.

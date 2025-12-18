@@ -1,6 +1,8 @@
 #pragma once
 
-#include "LegalCase.h"
+#include "../include/LegalCase.h"
+
+class LawOffice;
 
 /**
  * @brief Класс ConsultationCase представляет дело о консультации.
@@ -18,9 +20,8 @@ public:
      * @brief Конструктор дела о консультации.
      * @param case_number Номер дела.
      * @param case_content Содержание дела.
-     * @param lawyer_name ФИО адвоката.
-     * @param client_name ФИО клиента.
-     * @param specialization Специализация дела.
+     * @param lawyer Указатель на адвоката.
+     * @param client Указатель на клиента.
      * @param consultation_topic Тема консультации.
      * @param duration_hours Продолжительность в часах.
      * @param is_online Онлайн консультация.
@@ -28,10 +29,35 @@ public:
      * @param is_active Активно ли дело.
      */
     ConsultationCase(const string& case_number, const string& case_content,
-                     const string& lawyer_name, const string& client_name,
-                     const Specialization specialization, const string& consultation_topic,
-                     const double duration_hours, const bool is_online, const double hourly_rate,
+                     const shared_ptr<Lawyer>& lawyer, const shared_ptr<Client>& client,
+                     const string& consultation_topic, const double duration_hours,
+                     const bool is_online, const double hourly_rate,
                      const bool is_active = true);
+
+    /**
+     * @brief Фабричный метод для создания консультации с регистрацией в конторе.
+     * @param case_number Номер дела.
+     * @param case_content Содержание дела.
+     * @param lawyer Указатель на адвоката.
+     * @param client Указатель на клиента.
+     * @param consultation_topic Тема консультации.
+     * @param duration_hours Продолжительность в часах.
+     * @param is_online Онлайн консультация.
+     * @param hourly_rate Почасовая ставка.
+     * @param office Ссылка на контору.
+     * @param is_active Активно ли дело.
+     * @return shared_ptr на созданное дело.
+     */
+    static shared_ptr<ConsultationCase> create(const string& case_number,
+                                                const string& case_content,
+                                                const shared_ptr<Lawyer>& lawyer,
+                                                const shared_ptr<Client>& client,
+                                                const string& consultation_topic,
+                                                const double duration_hours,
+                                                const bool is_online,
+                                                const double hourly_rate,
+                                                LawOffice& office,
+                                                const bool is_active = true);
 
     /**
      * @brief Выводит информацию о консультации.

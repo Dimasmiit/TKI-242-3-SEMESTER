@@ -1,15 +1,21 @@
-#include "LawOffice.h"
+#include "../include/LawOffice.h"
 #include <algorithm>
 #include <set>
+#include <map>
 
-void LawOffice::add_case(const shared_ptr<LegalCase> legal_case)
+void LawOffice::add_case(const shared_ptr<LegalCase>& legal_case)
 {
     cases.push_back(legal_case);
 }
 
-void LawOffice::register_lawyer(const string& lawyer_name, const Specialization spec)
+void LawOffice::add_lawyer(const shared_ptr<Lawyer>& lawyer)
 {
-    lawyers[lawyer_name] = spec;
+    lawyers.push_back(lawyer);
+}
+
+void LawOffice::add_client(const shared_ptr<Client>& client)
+{
+    clients.push_back(client);
 }
 
 vector<pair<string, double>> LawOffice::get_services_with_prices() const
@@ -59,22 +65,12 @@ vector<string> LawOffice::get_clients_by_service(const string& service_type) con
 
 vector<string> LawOffice::get_available_lawyers(const Specialization spec) const
 {
-    set<string> busy_lawyers;
-
-    for (const auto& legal_case : cases)
-    {
-        if (legal_case->get_is_active())
-        {
-            busy_lawyers.insert(legal_case->get_lawyer_name());
-        }
-    }
-
     vector<string> available;
     for (const auto& lawyer : lawyers)
     {
-        if (lawyer.second == spec && busy_lawyers.find(lawyer.first) == busy_lawyers.end())
+        if (lawyer->get_specialization() == spec && lawyer->is_available())
         {
-            available.push_back(lawyer.first);
+            available.push_back(lawyer->get_full_name());
         }
     }
 
@@ -171,9 +167,43 @@ vector<shared_ptr<LegalCase>> LawOffice::find_active_cases() const
     return result;
 }
 
+shared_ptr<Lawyer> LawOffice::find_lawyer_by_name(const string& name) const
+{
+    for (const auto& lawyer : lawyers)
+    {
+        if (lawyer->get_full_name() == name)
+        {
+            return lawyer;
+        }
+    }
+    return nullptr;
+}
+
+shared_ptr<Client> LawOffice::find_client_by_name(const string& name) const
+{
+    for (const auto& client : clients)
+    {
+        if (client->get_full_name() == name)
+        {
+            return client;
+        }
+    }
+    return nullptr;
+}
+
 const vector<shared_ptr<LegalCase>>& LawOffice::get_all_cases() const
 {
     return cases;
+}
+
+const vector<shared_ptr<Lawyer>>& LawOffice::get_all_lawyers() const
+{
+    return lawyers;
+}
+
+const vector<shared_ptr<Client>>& LawOffice::get_all_clients() const
+{
+    return clients;
 }
 
 size_t LawOffice::size() const
